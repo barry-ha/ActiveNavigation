@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-//namespace JVS;
+namespace JVS;
 
 /**
  * SimpleNavigation tests
