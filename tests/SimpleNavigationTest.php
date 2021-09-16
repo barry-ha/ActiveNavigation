@@ -1,12 +1,13 @@
 <?php
-namespace JVS;
+use PHPUnit\Framework\TestCase;
+//namespace JVS;
 
 /**
  * SimpleNavigation tests
  *
  * @author Javier Villanueva <info@jvsoftware.com>
  */
-class SimpleNavigationTest extends \PHPUnit_Framework_TestCase
+final class SimpleNavigationTest extends TestCase
 {
     /**
      * SimpleNavigation instance
@@ -87,7 +88,12 @@ class SimpleNavigationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Make sure it can render multi-level navigations
+     * Make sure it can render multi-level navigation
+     * 
+     * PHP Fatal error:  
+     * Declaration of          PHPUnit_Framework_Comparator_DOMDocument::assertEquals($expected, $actual, $delta = 0, $canonicalize = false, $ignoreCase = false) 
+     * must be compatible with PHPUnit_Framework_Comparator_Object     ::assertEquals($expected, $actual, $delta = 0, $canonicalize = false, $ignoreCase = false, array &$processed = Array) 
+     * in /home/travis/build/barry-ha/SimpleNavigation/vendor/phpunit/phpunit/PHPUnit/Framework/Comparator/DOMDocument.php on line 114
      *
      * @return void
      */
