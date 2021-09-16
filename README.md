@@ -2,8 +2,9 @@
 
 [![Build Status](https://travis-ci.org/JV-Software/SimpleNavigation.png?branch=master)](https://travis-ci.org/JV-Software/SimpleNavigation)
 
-A class for rendering navigation from an array of items, and highlighting the active page.
-This is intended to be backward-compatible with JV-Software/SimpleNavigation.
+A class for rendering navigation from an array of items and highlighting the active page.
+
+This is intended to be backward-compatible with the original source JV-Software/SimpleNavigation.
 
 ### Installation
 
@@ -28,7 +29,7 @@ packages.
 
 ### Usage - Simple Array
 
-`ActiveNavigation` provides a simple `make` function that expects an array with the menu items you want to render. , it can be a simple array:
+`ActiveNavigation` provides a simple `make` function that expects an array with the menu items you want to render. It can be a simple array:
 
 ```php
 $simpleNav = new JVS\ActiveNavigation;
@@ -108,6 +109,8 @@ Which outputs:
 
 ### Usage - Active Page
 
+An optional URL argument to the ```make``` function allows it to find and decorate both the active link and the enclosing item with ```class="active"```:
+
 ```php
 $simpleNav = new JVS\ActiveNavigation;
 $navItems = array(
@@ -117,9 +120,9 @@ $navItems = array(
     'Page 2' => 'page2.html', 
     'Page 3' => 'page3.html', 
   ),
-  'Blog'  => 'blog.html',
+  'Contact'  => 'contact.html',
 );
-echo $simpleNav->make($navItems, 'page2.html', '  ');
+echo $simpleNav->make($navItems, 'page2.html');
 ```
 
 Which outputs:
@@ -139,7 +142,13 @@ Which outputs:
 </ul>
 ```
 
-That's all there is to it for now.
+### Usage - Indentation
+
+You can pretty-print the html output with an optional argument for indentation. For example, set this to two spaces or four spaces or a \t tab character according to your own coding style. If the third argument is not specified, by default the html output is run together on a single line. 
+
+```html
+echo $simpleNav->make($navItems, 'page2.html', '  ');
+```
 
 ### Inspiration
 
