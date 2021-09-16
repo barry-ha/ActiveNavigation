@@ -1,18 +1,19 @@
-## Simple Navigation for PHP
+## PHP Navigation with Active Page
 
 [![Build Status](https://travis-ci.org/JV-Software/SimpleNavigation.png?branch=master)](https://travis-ci.org/JV-Software/SimpleNavigation)
 
-Super simple class for rendering navigation from an array of items.
+A class for rendering navigation from an array of items, and highlighting the active page.
+This is intended to be backward-compatible with JV-Software/SimpleNavigation.
 
 ### Installation
 
 #### With Composer
 
-Simply require the library on your `composer.json` file:
+In your `composer.json` file, require the library:
 
 ```
 "require": {
-    "jvs/simplenavigation": "dev-master"
+    "jvs/activenavigation": "dev-master"
 }
 ```
 
@@ -23,14 +24,14 @@ packages.
 
 1. Download the zip file
 2. Extract to your project folder
-3. Make sure to require the main class `require_once 'lib/JVS/SimpleNavigation.php';`
+3. Make sure to require the main class `require_once 'lib/JVS/ActiveNavigation.php';`
 
-### Usage
+### Usage - Simple Array
 
-`SimpleNavigation` provides a simple `make` function that expects an array with the menu items you want to render, it can be a simple array:
+`ActiveNavigation` provides a simple `make` function that expects an array with the menu items you want to render. , it can be a simple array:
 
 ```php
-$simpleNav = new JVS\SimpleNavigation;
+$simpleNav = new JVS\ActiveNavigation;
 $navItems = array('Home', 'About Us', 'Blog');
 
 echo $simpleNav->make($navItems);
@@ -46,10 +47,12 @@ Which outputs:
 </ul>
 ```
 
-A multi-dimensional array with key/value pairs representing the label and url of the item:
+### Usage - Simple Array with Links
+
+An array with key/value pairs representing the link's name and url:
 
 ```php
-$simpleNav = new JVS\SimpleNavigation;
+$simpleNav = new JVS\ActiveNavigation;
 $navItems = array(
     'Home'     => 'http://www.example.com/',
     'About Us' => 'http://www.example.com/about.php',
@@ -69,10 +72,12 @@ Which outputs:
 </ul>
 ```
 
-Or a fully nested array of arrays:
+### Usage - Nested Array
+
+Or a fully nested multi-level array of navigation items:
 
 ```php
-$simpleNav = new JVS\SimpleNavigation;
+$simpleNav = new JVS\ActiveNavigation;
 $navItems = array(
     'Home'     => 'http://www.example.com/',
     'About Us' => array(
@@ -101,7 +106,44 @@ Which outputs:
 </ul>
 ```
 
+### Usage - Active Page
+
+```php
+$simpleNav = new JVS\ActiveNavigation;
+$navItems = array(
+  'Home'  => 'index.html', 
+  'About' => array(
+    'Page 1' => 'page1.html', 
+    'Page 2' => 'page2.html', 
+    'Page 3' => 'page3.html', 
+  ),
+  'Blog'  => 'blog.html',
+);
+echo $simpleNav->make($navItems, 'page2.html', '  ');
+```
+
+Which outputs:
+
+```html
+<ul>
+    <li><a href="index.html">Home</a></li>
+    <li>
+        <a class="active" href="#">About</a>
+        <ul>
+            <li><a href="page1.html">Page 1</a></li>
+            <li><a class="active" href="page2.html">Page 2</a></li>
+            <li><a href="page3.html">Page 3</a></li>
+        </ul>  
+    </li>
+    <li><a href="blog.html">Blog</a></li>
+</ul>
+```
+
 That's all there is to it for now.
+
+### Inspiration
+
+Forked from https://github.com/JV-Software/SimpleNavigation
 
 ### Contributing
 

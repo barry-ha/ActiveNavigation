@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Index.html</title>
+  <style>
+    .active { font-size:large; font-weight: bold; color: black; }
+  </style>
+</head>
+
+<body>
+  <h1>bootstrap / ActiveNavigation / index.html</h1>
+<?php
+    require_once('lib/JVS/ActiveNavigation.php');
+
+    $simpleNav = new JVS\SimpleNavigation;
+    $navItems = array(
+      'Home'  => 'index.html', 
+      'About' => array(
+        'Page 1' => 'page1.html', 
+        'Page 2' => 'page2.html', 
+        'Page 3' => 'page3.html', 
+      ),
+      'Blog'  => 'blog.html',
+    );
+    echo $simpleNav->make($navItems, 'page2.html', '  ');
+?>
+</body>
+
+</html>
