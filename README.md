@@ -14,7 +14,7 @@ In your `composer.json` file, require the library:
 
 ```
 "require": {
-    "jvs/activenavigation": "dev-master"
+    "jvs/simplenavigation": "dev-master"
 }
 ```
 
@@ -25,14 +25,14 @@ packages.
 
 1. Download the zip file
 2. Extract to your project folder
-3. Make sure to require the main class `require_once 'lib/JVS/ActiveNavigation.php';`
+3. Make sure to require the main class `require_once 'lib/JVS/SimpleNavigation.php';`
 
 ### Usage - Simple Array
 
-`ActiveNavigation` provides a simple `make` function that expects an array with the menu items you want to render. It can be a simple array:
+`SimpleNavigation` provides a simple `make` function that expects an array with the menu items you want to render. It can be a simple array:
 
 ```php
-$simpleNav = new JVS\ActiveNavigation;
+$simpleNav = new JVS\SimpleNavigation;
 $navItems = array('Home', 'About Us', 'Blog');
 
 echo $simpleNav->make($navItems);
@@ -53,7 +53,7 @@ Which outputs:
 An array with key/value pairs representing the link's name and url:
 
 ```php
-$simpleNav = new JVS\ActiveNavigation;
+$simpleNav = new JVS\SimpleNavigation;
 $navItems = array(
     'Home'     => 'http://www.example.com/',
     'About Us' => 'http://www.example.com/about.php',
@@ -78,7 +78,7 @@ Which outputs:
 Or a fully nested multi-level array of navigation items:
 
 ```php
-$simpleNav = new JVS\ActiveNavigation;
+$simpleNav = new JVS\SimpleNavigation;
 $navItems = array(
     'Home'     => 'http://www.example.com/',
     'About Us' => array(
@@ -112,7 +112,7 @@ Which outputs:
 An optional URL argument to the ```make``` function allows it to find and decorate both the active link and the enclosing item with ```class="active"```:
 
 ```php
-$simpleNav = new JVS\ActiveNavigation;
+$simpleNav = new JVS\SimpleNavigation;
 $navItems = array(
   'Home'  => 'index.html', 
   'About' => array(

@@ -1,13 +1,22 @@
 <?php
+/**
+ * LOCAL: How to run unit test
+ *      > W:
+ *      > CD \gwrfinancial\bootstrap\SimpleNavigation\tests
+ *      > php phpunit-9.5.9.phar SimpleNavigationTest.php
+ */
+
 use PHPUnit\Framework\TestCase;
-namespace JVS;
+require('../lib/JVS/SimpleNavigation.php');
+//require('../lib/JVS/SimpleNavigation.JVS.php');
+echo "---Start test [line " . __LINE__ . "]" . PHP_EOL;
 
 /**
  * SimpleNavigation tests
  *
  * @author Javier Villanueva <info@jvsoftware.com>
  */
-final class SimpleNavigationTest extends TestCase
+class SimpleNavigationTest extends PHPUnit\Framework\TestCase
 {
     /**
      * SimpleNavigation instance
@@ -16,9 +25,9 @@ final class SimpleNavigationTest extends TestCase
      */
     protected $simpleNavigation;
 
-    public function setUp()
+    public function setUp() : void  // is called before each test runs
     {
-        $this->simpleNavigation = new SimpleNavigation;
+        $this->simpleNavigation = new JVS\SimpleNavigation;
     }
 
     /**
@@ -115,18 +124,21 @@ final class SimpleNavigationTest extends TestCase
         $htmlMenu .= '<ul>';
         $htmlMenu .= '<li><a href="http://about1.com">About 1</a></li>';
         $htmlMenu .= '<li><a href="http://about2.com">About 2</a></li>';
-        $htmlMenu .= '</ul>';
-        $htmlMenu .= '</li>';
-        $htmlMenu .= '</ul>';
+        $htmlMenu .= '</ul>';     // Note: DOM will auto-close tags
+        $htmlMenu .= '</li>';     // this test will pass whether or not 
+        $htmlMenu .= '</ul>';     //         these closing lines are here
 
         $expectedDom = new \DomDocument;
         $expectedDom->loadHtml($htmlMenu);
-        $expectedDom->preservewhitespace = false;
+        $expectedDom->preservewhitespace = true; //false;
 
         $actualDom = new \DomDocument();
-        $actualDom->loadHtml($this->simpleNavigation->make($multiLevelItems));
-        $actualDom->preservewhitespace = false;
+        $actualMenu = $this->simpleNavigation->make($multiLevelItems);
+        $actualDom->loadHtml($actualMenu);
+        $actualDom->preservewhitespace = true; //false;
 
         $this->assertXmlStringEqualsXmlString($expectedDom->saveHTML(), $actualDom->saveHTML());
+
+        $this->assertSame($htmlMenu, $actualMenu);
     }
 }

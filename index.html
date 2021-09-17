@@ -6,14 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Index.html</title>
   <style>
-    .active { font-size:large; font-weight: bold; color: black; }
+    .active {
+      font-size: large;
+      font-weight: bold;
+      color: black;
+    }
   </style>
 </head>
 
 <body>
-  <h1>bootstrap / ActiveNavigation / index.html</h1>
-<?php
-    require_once('lib/JVS/ActiveNavigation.php');
+  <h1>bootstrap / SimpleNavigation / index.html</h1>
+  <?php
+    require_once('lib/JVS/SimpleNavigation.php');
 
     $simpleNav = new JVS\SimpleNavigation;
     $navItems = array(
@@ -25,7 +29,20 @@
       ),
       'Blog'  => 'blog.html',
     );
-    echo $simpleNav->make($navItems, 'page2.html', '  ');
+    //echo $simpleNav->make($navItems, 'page2.html', '  ');
+?>
+
+  <hr />
+<?php 
+$multiLevelItems = array(
+  'Home'  => 'http://home.com',
+  'Blog'  => 'http://blog.com',
+  'About' => array(
+      'About 1' => 'http://about1.com',
+      'About 2' => 'http://about2.com',
+  ),
+);
+echo $simpleNav->make($multiLevelItems, '', '  ');
 ?>
 </body>
 
