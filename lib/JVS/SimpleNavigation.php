@@ -24,16 +24,16 @@ class SimpleNavigation
    */
   public function render(array $menu, $indent)
   {
-    $html = "$indent<ul>" . PHP_EOL;
+    $html = PHP_EOL . "$indent<ul>" . PHP_EOL;
 
-    foreach ($menu as $label=>$item) {
+    foreach ($menu as $label => $item) {
       $url = $item['url'];
       $active = $item['active'];
 
-      $html .= "$indent$indent<li>";
+      $html .= "$indent<li>";
 
       // Link to url if present otherwise link to "#"
-      $class = ($active ? "class='active' " : '');
+      $class = ($active ? 'class="active" ' : '');
       $href = 'href="' . ((!is_int($label) and !is_array($url)) ? $url : '#') . '"';
 
       $html .= "<a $class$href>";
@@ -41,9 +41,12 @@ class SimpleNavigation
       $html .= '</a>';
 
       // Run recursively if a nested array is found
-      $html .= (is_array($url) ? $this->render($url, $indent.$indent) : '');
-
-      $html .= '</li>' . PHP_EOL;
+      if (is_array($url)) {
+        $html .= $this->render($url, $indent . $indent);
+        $html .= "$indent</li>" . PHP_EOL;
+      } else {
+        $html .= '</li>' . PHP_EOL;
+      }
     }
 
     $html .= "$indent</ul>" . PHP_EOL;
@@ -52,31 +55,47 @@ class SimpleNavigation
   }
 
   /**
+   * Helper function to count the number of array elements marked 'active'
+   */
+  private function countActive(array $menu)
+  {
+    $count = 0;   // assume no element is active
+    foreach ($menu as $item) {
+      $count += $item['active'];
+    }
+    //echo "-----countActive = $count of " . sizeof($menu) . " elements".PHP_EOL;
+    return $count;
+  }
+
+  /**
    * Search array to flag active elements, including nested levels.
    * The 'nested array' input is key-value pairs.
    * The resulting output is key-array pairs. 
    * 
-   * @param  array  $menuItems Menu items array of ('label' => 'url')
-   * @return array  $menu array of ('label' => array('url'=>text, 'active'=>bool))
+   * @param  array  $menuItems = array of ('label' => 'url')
+   * @return array  $menu      = array of ('label' => array('url'=>text, 'active'=>bool))
    */
   public function flagActive(array $menuItems, $activeURL)
   {
     $menu = array();
-    $ret = false; // ??? how to return this up the stack? help! can't return TWO values
+    $groupActive = 0;  // assume no element is active
     foreach ($menuItems as $label => $url) {
+
       // Run recursively if a nested array is found
       if (is_array($url)) {
         $item = array();
         $item['url'] = $this->flagActive($url, $activeURL);
-        $item['active'] = false;  // todo
+        $item['active'] = $this->countActive($item['url']); // examine the nested array returned by flagActive
         $menu[$label] = $item;
       } else {
         $item = array();
         $item['url'] = $url;
-        $item['active'] = ($url == $activeURL) ? true : false;
+        $item['active'] = ($url == $activeURL) ? 1 : 0;
+        $groupActive += $item['active'];
         $menu[$label] = $item;
       }
     }
+
     /* 
     echo PHP_EOL . PHP_EOL;
     var_dump($menu);

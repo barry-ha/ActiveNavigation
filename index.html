@@ -29,20 +29,20 @@
       ),
       'Blog'  => 'blog.html',
     );
-    //echo $simpleNav->make($navItems, 'page2.html', '  ');
+    echo $simpleNav->make($navItems, 'page2.html', '  ');
 ?>
 
   <hr />
 <?php 
 $multiLevelItems = array(
   'Home'  => 'http://home.com',
-  'Blog'  => 'http://blog.com',
   'About' => array(
       'About 1' => 'http://about1.com',
       'About 2' => 'http://about2.com',
   ),
+  'Blog'  => 'http://blog.com',
 );
-echo $simpleNav->make($multiLevelItems, '', '  ');
+//echo $simpleNav->make($multiLevelItems, '', '  ');
 ?>
 </body>
 

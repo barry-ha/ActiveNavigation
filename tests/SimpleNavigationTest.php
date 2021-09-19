@@ -106,7 +106,7 @@ class SimpleNavigationTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function testCanRenderMultiLevelMenu()
+    public function testRenderMultiLevelMenu()
     {
         $multiLevelItems = array(
             'Home'  => 'http://home.com',
@@ -140,5 +140,86 @@ class SimpleNavigationTest extends PHPUnit\Framework\TestCase
         $this->assertXmlStringEqualsXmlString($expectedDom->saveHTML(), $actualDom->saveHTML());
 
         //$this->assertSame($htmlMenu, $actualMenu);
+    }
+
+    /**
+     * Verify the end-of-line formatting for multi-level navigation
+     * 
+     * @return void
+     */
+    public function testRenderMultiLevelMenuEOL()
+    {
+        $multiLevelItems = array(
+            'Home'  => 'http://home.com',
+            'Blog'  => 'http://blog.com',
+            'About' => array(
+                'About 1' => 'http://about1.com',
+                'About 2' => 'http://about2.com',
+            ),
+        );
+
+        $htmlMenu  = PHP_EOL;
+        $htmlMenu .= '  <ul>'.PHP_EOL;
+        $htmlMenu .= '  <li><a href="http://home.com">Home</a></li>'.PHP_EOL;
+        $htmlMenu .= '  <li><a href="http://blog.com">Blog</a></li>'.PHP_EOL;
+        $htmlMenu .= '  <li><a href="#">About</a>'.PHP_EOL;
+        $htmlMenu .= '    <ul>'.PHP_EOL;
+        $htmlMenu .= '    <li><a href="http://about1.com">About 1</a></li>'.PHP_EOL;
+        $htmlMenu .= '    <li><a href="http://about2.com">About 2</a></li>'.PHP_EOL;
+        $htmlMenu .= '    </ul>'.PHP_EOL;     // Note: DOM will auto-close tags
+        $htmlMenu .= '  </li>'.PHP_EOL;     // this test will pass whether or not 
+        $htmlMenu .= '  </ul>'.PHP_EOL;     //         these closing lines are here
+
+        $expectedDom = new \DomDocument;
+        $expectedDom->loadHtml($htmlMenu);
+        $expectedDom->preservewhitespace = false;
+
+        $actualDom = new \DomDocument();
+        $actualMenu = $this->simpleNavigation->make($multiLevelItems, '', '  ');
+        $actualDom->loadHtml($actualMenu);
+        $actualDom->preservewhitespace = false;
+
+        //$this->assertXmlStringEqualsXmlString($expectedDom->saveHTML(), $actualDom->saveHTML());
+
+        $this->assertSame($htmlMenu, $actualMenu);
+    }
+
+    /**
+     * Verify the "class=active" link decoration 
+     * 
+     * @return void
+     */
+    public function testRenderActivePage()
+    {
+        $multiLevelItems = array(
+          'Home'  => 'index.html',
+          'About' => array(
+            'About 1' => 'about1.html',
+            'About 2' => 'about2.html',
+          ),
+          'Contact'  => 'contact.html',
+        );
+
+        $htmlMenu  = '<ul>';
+        $htmlMenu .= '<li><a href="index.html">Home</a></li>';
+        $htmlMenu .= '<li><a class="active" href="#">About</a>'; // <--active
+        $htmlMenu .= '<ul>';
+        $htmlMenu .= '<li><a href="about1.html">About 1</a></li>';
+        $htmlMenu .= '<li><a class="active" href="about2.html">About 2</a></li>'; // <--active
+        $htmlMenu .= '</ul>';
+        $htmlMenu .= '</li>';
+        $htmlMenu .= '<li><a href="contact.html">Contact</a></li>';
+        $htmlMenu .= '</ul>';
+
+        $expectedDom = new \DomDocument;
+        $expectedDom->loadHtml($htmlMenu);
+        $expectedDom->preservewhitespace = false;
+
+        $actualDom = new \DomDocument();
+        $actualMenu = $this->simpleNavigation->make($multiLevelItems, 'about2.html');
+        $actualDom->loadHtml($actualMenu);
+        $actualDom->preservewhitespace = false;
+
+        $this->assertXmlStringEqualsXmlString($expectedDom->saveHTML(), $actualDom->saveHTML());
     }
 }
