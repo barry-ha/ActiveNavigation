@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+  <title>index-bs.html</title>
+  <link href="index-bs.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container-md">
+    <div class="row">
+      <h1>SimpleNavigation / index-bs.html</h1>
+
+      <hr />
+      <h5>Hard coded nav bar</h5>
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <!-- begin hard-coded navigation -->
+
+          <a class="navbar-brand" href="#">Navbar</a>
+          <!-- Hamburger icon -->
+          <button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav nav-pills">
+              <!-- Begin item 1, level 1, is active -->
+              <li class="nav-item">
+                <a class="nav-link active" href="index.html" aria-current="page">Home</a>
+              </li>
+              <!-- Begin item 2, level 1 -->
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+              <!-- Begin item 3, level 1, has dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" 
+                  data-bs-toggle="dropdown" id="navbarItem3" aria-expanded="false">
+                  About Us
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarItem4">
+                  <!-- Begin item 4, level 2 -->
+                  <li>
+                    <a class="dropdown-item" href="page1.html">Page 1</a>
+                  </li>
+                  <!-- Begin item 5, level 2 -->
+                  <li>
+                    <a class="dropdown-item" href="page2.html">Page 2</a>
+                  </li>
+                  <!-- Begin item 6, level 2 -->
+                  <li>
+                    <a class="dropdown-item" href="page3.html">Page 3</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div><!-- container-fluid --><?php echo '<!-- '.__LINE__.' -->'; ?> 
+      </nav>
+
+      <hr />
+<?php 
+  require_once('lib/JVS/SimpleNavigation.php');
+  
+  $bootstrapNav = new JVS\BootstrapNavigation;
+  $navItems = array(
+    'Home'  => 'index.html', 
+    'Contact' => 'contact.html',
+    'About Us' => array(
+      'Page 1' => 'page1.html', 
+      'Page 2' => 'page2.html', 
+      'Page 3' => 'page3.html', 
+    ),
+  );
+  $mynav = $bootstrapNav->make($navItems, 'index.html', '          ');
+?>
+      <p style="padding-top: 2em;">&nbsp;</p>
+      <h5>Programmed nav bar</h5>
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <!-- begin BootstrapNavigation -->
+<?php echo $mynav; ?>
+          <!-- end BootstrapNavigation -->
+        </div><!-- container-fluid -->
+      </nav>
+
+      <hr />
+      <!-- main content -->
+      <div class="mainContent">
+        <p>Page template from
+          <a target="_blank" href="https://getbootstrap.com/docs/5.1/getting-started/introduction/">
+            Get Bootstrap 5.1</a>
+          <br />Nav bar template from
+          <a target="_blank" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
+            Navbar Examples</a>
+          <br />Accessible Rich Internet Applications (ARIA) per
+          <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA">
+            Mozilla ARIA Docs</a>
+        </p>
+      </div><!-- mainContent -->
+    </div><!-- row -->
+  </div><!-- container-md -->
+
+  <!-- Bootstrap bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

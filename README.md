@@ -148,7 +148,34 @@ You can pretty-print the html output with an optional argument for indentation. 
 
 ```html
 echo $simpleNav->make($navItems, 'page2.html', '  ');
+
 ```
+### Usage - Bootstrap Navigation
+
+Bootstrap 4 is the world's most popular framework for building responsive websites. You can generate HTML containing Bootstrap tags with the derived class ```BootstrapNavigation```.
+
+````html
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-md">
+    <nav class="navbar navbar-expand-md navbar-light"><!-- 35 -->
+<?php require_once('php/sitenav.php'); writeNavbar(); ?>
+    </nav>
+  </div>
+$bootstrapNav = new JVS\BootstrapNavigation;
+</body>
+````
+Which will result in:
+
+````html
+
+````
 
 ### Inspiration
 

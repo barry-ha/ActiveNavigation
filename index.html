@@ -1,35 +1,34 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
   <title>Index.html</title>
-  <style>
-    .active {
-      font-size: large;
-      font-weight: bold;
-      color: black;
-    }
-  </style>
+  <link href="index-bs.css" rel="stylesheet" />
 </head>
 
 <body>
+  <div class="container-md">
+    <div class="row">
   <h1>bootstrap / SimpleNavigation / index.html</h1>
-  <?php
-    require_once('lib/JVS/SimpleNavigation.php');
-
-    $simpleNav = new JVS\SimpleNavigation;
-    $navItems = array(
-      'Home'  => 'index.html', 
-      'About' => array(
-        'Page 1' => 'page1.html', 
-        'Page 2' => 'page2.html', 
-        'Page 3' => 'page3.html', 
-      ),
-      'Blog'  => 'blog.html',
-    );
-    echo $simpleNav->make($navItems, 'page2.html', '  ');
+<?php 
+  require_once('lib/JVS/SimpleNavigation.php');
+  
+  $simpleNav = new JVS\SimpleNavigation;
+  $navItems = array(
+    'Home'  => 'index.html', 
+    'About Us' => array(
+      'Page 1' => 'page1.html', 
+      'Page 2' => 'page2.html', 
+      'Page 3' => 'page3.html', 
+    ),
+    'Blog'  => 'blog.html',
+  );
+  echo $simpleNav->make($navItems, 'page2.html', '  ');
 ?>
 
   <hr />
@@ -42,8 +41,14 @@ $multiLevelItems = array(
   ),
   'Blog'  => 'http://blog.com',
 );
-//echo $simpleNav->make($multiLevelItems, '', '  ');
+echo $simpleNav->make($multiLevelItems, '', '  ');
 ?>
+    </div><!-- row -->
+  </div><!-- container -->
+
+  <!-- Bootstrap bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 
 </html>

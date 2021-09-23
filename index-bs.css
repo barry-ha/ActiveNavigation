@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+  color: #0f151f;
+  background-color: #d2d4c8;
+}
+
+.header {
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+h2, h3, h4, h5, h6 {
+  color: #005b47 !important;
+}
+
+
+/* ----- navigation ----- */
+.nav {}
+
+.nav-pills .nav-link {
+  /* color: white; */
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  color: white;
+}
+
+.nav-pills .nav-link.active {
+  background: #960;
+}
+
+.nav-pills .nav-link:hover {
+  text-decoration: underline;
+}
+.nav-pills .show > .nav-link {
+  border: 1px solid rgb(128, 128, 128);
+  background-color: rgb(190, 190, 190);
+}
+.dropdown-item.active {
+  background-color: #960;
+}
+.dropdown-menu a:hover {
+  text-decoration: underline;
+}
+
