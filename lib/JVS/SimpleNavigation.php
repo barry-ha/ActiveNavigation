@@ -3,7 +3,7 @@
 namespace JVS;
 function here($line) 
 {
-  return "<!-- $line -->";
+  //return "<!-- $line -->";
 }
 
 /**
@@ -33,7 +33,7 @@ class SimpleNavigation
    */
   public function render(array $menu, $indent, $level=1)
   {
-    $html = PHP_EOL . "$indent<ul>" . PHP_EOL;
+    $html = "$indent<ul>" . PHP_EOL;
 
     foreach ($menu as $label => $item) {
       $url = $item['url'];
@@ -110,6 +110,7 @@ class SimpleNavigation
 
   public function make(array $menuItems, $activeURL = '', $indent = '')
   {
+    echo "$indent<!-- ". __FILE__ . " -->".PHP_EOL;
     $menu = $this->flagActive($menuItems, $activeURL);
     $html = $this->render($menu, $indent);
     return $html;
@@ -141,7 +142,7 @@ class BootstrapNavigation extends SimpleNavigation
       echo PHP_EOL . '</div><br/>' . PHP_EOL;
       }
     /* */
-    $html = PHP_EOL;
+    $html = '';
     if ($level == 1) {
       // Begin brand
       $html .= $indent.'<a class="navbar-brand" href="#">Navbar</a>' . PHP_EOL;
@@ -200,7 +201,7 @@ class BootstrapNavigation extends SimpleNavigation
         /**** */
 
         if ($dropdown) {
-          $html .= $indent .'    <li class="nav-item dropdown">'.'<!-- '.__LINE__.' -->'.PHP_EOL;
+          $html .= $indent .'    <li class="nav-item dropdown">'.'<!-- '.here(__LINE__).' -->'.PHP_EOL;
           if ($active) {
             $html .= $indent .'      <a class="nav-link dropdown-toggle active" href="#"'.PHP_EOL;
             $html .= $indent .'        data-bs-toggle="dropdown" id="navbarItem'.$itemNum.'" aria-expanded="false">'.PHP_EOL;
